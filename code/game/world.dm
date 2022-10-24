@@ -212,6 +212,11 @@ var/world_topic_spam_protect_time = world.timeofday
 	TgsReboot()
 	..(reason)
 
+/client/verb/reboot_test()
+	set name = "Testing"
+	set category = "Server"
+	world.notify_manager(restarting = TRUE)
+
 /world/proc/send_reboot_sound()
 	var/reboot_sound = SAFEPICK(reboot_sfx)
 	if(reboot_sound)
