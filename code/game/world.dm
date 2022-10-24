@@ -221,28 +221,14 @@ var/world_topic_spam_protect_time = world.timeofday
 				SEND_SOUND(client, reboot_sound_ref)
 
 /world/proc/notify_manager(restarting = FALSE)
-	. = FALSE
-	var/manager = CONFIG_GET(string/manager_url)
-	if(!manager)
-		return TRUE
+	if(!TgsAvailable())
+		return FALSE
+	var/datum/discord_embed/message = new()
+	message.title = "[round_statistics.round_name] Completed!"
+	message.description = "@[CONFIG_GET(string/new_round_alert_role_id)] Restarting! Next map is [SSmapping.next_map_configs[GROUND_MAP]]"
+	message.footer = "<byond://[world.internet_address]:[world.port]>"
 
-	var/list/payload = list()
-	payload["round_time"] = world.time
-	payload["drift"] = Master.tickdrift
-	if(restarting)
-		payload["restarting"] = TRUE
-		if(SSticker?.mode)
-			payload["round_result"] = SSticker.mode.end_round_message()
-	if(round_statistics?.round_name)
-		payload["mission_name"] = round_statistics.round_name
-	if(SSmapping.next_map_configs)
-		var/datum/map_config/next_map = SSmapping.next_map_configs[GROUND_MAP]
-		if(next_map)
-			payload["next_map"] = next_map.map_name
-	payload["avg_players"] = SSstats_collector.get_avg_players()
-
-	var/payload_ser = url_encode(json_encode(payload))
-	world.Export("[manager]/?payload=[payload_ser]")
+	send2chat(message, CONFIG_GET(string/new_round_alert_channel))
 	return TRUE
 
 /world/proc/load_mode()
