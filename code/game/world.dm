@@ -215,7 +215,8 @@ var/world_topic_spam_protect_time = world.timeofday
 /client/verb/reboot_test()
 	set name = "Testing"
 	set category = "Server"
-	world.notify_manager(restarting = TRUE)
+	for(var/I in world.TgsChatChannelInfo())
+		to_chat(src, "[I.custom_tag]")
 
 /world/proc/send_reboot_sound()
 	var/reboot_sound = SAFEPICK(reboot_sfx)
