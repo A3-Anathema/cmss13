@@ -235,7 +235,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	message.description = "@[CONFIG_GET(string/new_round_alert_role_id)] Restarting! Next map is [SSmapping.next_map_configs[GROUND_MAP]]"
 	message.footer = "<byond://[world.internet_address]:[world.port]>"
 
-	send2chat(message, CONFIG_GET(string/new_round_alert_channel))
+	send2chat("test", "new_round_alert")
 	return TRUE
 
 /world/proc/load_mode()
