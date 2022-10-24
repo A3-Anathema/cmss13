@@ -218,6 +218,7 @@ var/world_topic_spam_protect_time = world.timeofday
 	for(var/I in world.TgsChatChannelInfo())
 		var/datum/tgs_chat_channel/channel = I
 		to_chat(src, "[channel.custom_tag]")
+	send2chat("test", "new_round_alert")
 
 /world/proc/send_reboot_sound()
 	var/reboot_sound = SAFEPICK(reboot_sfx)
