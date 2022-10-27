@@ -25,7 +25,7 @@
 /datum/tgs_chat_command/check/Run(datum/tgs_chat_user/sender, params)
 	var/server = CONFIG_GET(string/server)
 	return "[SSperf_logging.round.id ? "Round #[SSperf_logging.round.id]: " : ""][GLOB.clients.len] players on [SSmapping.configs[GROUND_MAP]?.map_name ]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] Round Time: [DisplayTimeText(world.time - SSticker.round_start_time)]\
-	\n[server ? server : "<[world.internet_address]:[world.port]>"]"
+	\n[server ? server : "**__<[world.internet_address]:[world.port]>__**"]"
 
 /datum/tgs_chat_command/gameversion
 	name = "gameversion"
