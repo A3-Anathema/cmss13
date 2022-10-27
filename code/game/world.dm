@@ -205,9 +205,8 @@ var/world_topic_spam_protect_time = world.timeofday
 		if(server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[server]")
 
-
-	if(!notify_manager(restarting = TRUE))
-		log_debug("Failed to notify manager daemon of restart")
+	send2chat("[round_statistics.round_name] Completed!", CONFIG_GET(string/new_round_alert_channel))
+	send2chat("@<[CONFIG_GET(string/new_round_alert_role_id)]> Restarting! Next map is [SSmapping.next_map_configs[GROUND_MAP]]", CONFIG_GET(string/new_round_alert_channel))
 
 	TgsReboot()
 	..(reason)
@@ -227,17 +226,6 @@ var/world_topic_spam_protect_time = world.timeofday
 		for(var/client/client as anything in GLOB.clients)
 			if(client?.prefs.toggles_sound & SOUND_REBOOT)
 				SEND_SOUND(client, reboot_sound_ref)
-
-/world/proc/notify_manager(restarting = FALSE)
-	if(!TgsAvailable())
-		return FALSE
-	var/datum/discord_embed/message = new()
-	message.title = "[round_statistics.round_name] Completed!"
-	message.description = "@[CONFIG_GET(string/new_round_alert_role_id)] Restarting! Next map is [SSmapping.next_map_configs[GROUND_MAP]]"
-	message.footer = "<byond://[world.internet_address]:[world.port]>"
-
-	send2chat(message, "new-round-alert")
-	return TRUE
 
 /world/proc/load_mode()
 	var/list/Lines = file2list("data/mode.txt")
