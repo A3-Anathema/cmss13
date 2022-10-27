@@ -205,7 +205,8 @@ var/world_topic_spam_protect_time = world.timeofday
 		if(server)	//if you set a server location in config.txt, it sends you there instead of trying to reconnect to the same world address. -- NeoFite
 			C << link("byond://[server]")
 
-	send2chat("[round_statistics.round_name] Completed!", CONFIG_GET(string/new_round_alert_channel))
+	if(round_statistics.round_name)
+		send2chat("[round_statistics.round_name] Completed!", CONFIG_GET(string/new_round_alert_channel))
 	send2chat("@<[CONFIG_GET(string/new_round_alert_role_id)]> Restarting! Next map is [SSmapping.next_map_configs[GROUND_MAP]]", CONFIG_GET(string/new_round_alert_channel))
 
 	TgsReboot()
