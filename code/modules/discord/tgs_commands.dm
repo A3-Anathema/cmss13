@@ -9,7 +9,7 @@
 	var/list/adm = get_admin_counts()
 	var/list/allmins = adm["total"]
 	var/status = "Admins: [allmins.len] (Active: [english_list(adm["present"])] AFK: [english_list(adm["afk"])] Stealth: [english_list(adm["stealth"])] Skipped: [english_list(adm["noflags"])]). "
-	status += "Players: [GLOB.clients.len] (Active: [get_active_player_count(0,1,0)]). Round has [SSticker.HasRoundStarted() ? "" : "not "]started."
+	status += "Players: [GLOB.clients.len]. Round has [SSticker.HasRoundStarted() ? "" : "not "]started."
 	return status
 
 /datum/tgs_chat_command/check
@@ -18,7 +18,7 @@
 
 /datum/tgs_chat_command/check/Run(datum/tgs_chat_user/sender, params)
 	var/server = CONFIG_GET(string/server)
-	return "[GLOB.round_id ? "Round #[GLOB.round_id]: " : ""][GLOB.clients.len] players on [SSmapping.config.map_name]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] -- [server ? server : "[world.internet_address]:[world.port]"]"
+	return "[SSperf_logging.round.id ? "Round #[SSperf_logging.round.id]: " : ""][GLOB.clients.len] players on [SSmapping.configs[GROUND_MAP]?.map_name ]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] -- [server ? server : "[world.internet_address]:[world.port]"]"
 
 /datum/tgs_chat_command/gameversion
 	name = "gameversion"
