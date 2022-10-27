@@ -212,7 +212,8 @@ var/world_topic_spam_protect_time = world.timeofday
 		if(next_map)
 			send2chat("<@&[CONFIG_GET(string/new_round_alert_role_id)]> Restarting! Next map is [next_map.map_name]", CONFIG_GET(string/new_round_alert_channel))
 	else
-		send2chat("<@&[CONFIG_GET(string/new_round_alert_role_id)]> Restarting!", CONFIG_GET(string/new_round_alert_channel)
+		send2chat("<@&[CONFIG_GET(string/new_round_alert_role_id)]> Restarting!", CONFIG_GET(string/new_round_alert_channel))
+
 	TgsReboot()
 	..(reason)
 
