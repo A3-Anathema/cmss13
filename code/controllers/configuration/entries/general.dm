@@ -17,6 +17,8 @@ Basics, the most important.
 
 /datum/config_entry/string/new_round_alert_role_id
 
+/datum/config_entry/string/statistics_channel
+
 /datum/config_entry/flag/hub	// if the game appears on the hub or not
 
 /datum/config_entry/string/wikiurl

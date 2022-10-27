@@ -211,16 +211,28 @@ var/world_topic_spam_protect_time = world.timeofday
 	..(reason)
 
 /world/proc/send_tgs_restart()
+
+	var/round_name = round_statistics ? round_statistics.round_name : null
+	var/datum/map_config/next_map = SSmapping.next_map_configs ? SSmapping.next_map_configs[GROUND_MAP] : null
+	var/tickdrift = time2text(world.time - Master.tickdrift)
+	var/round_time = time2text(world.time)
+	var/average_players = SSstats_collector.get_avg_players()
+	var/conclusion = SSticker.mode ? SSticker.mode.end_round_message() : null
+
 	if(CONFIG_GET(string/new_round_alert_channel) && CONFIG_GET(string/new_round_alert_role_id))
-		if(round_statistics)
-			send2chat("[round_statistics.round_name] completed!", CONFIG_GET(string/new_round_alert_channel))
-		if(SSmapping.next_map_configs)
-			var/datum/map_config/next_map = SSmapping.next_map_configs[GROUND_MAP]
-			if(next_map)
-				send2chat("<@&[CONFIG_GET(string/new_round_alert_role_id)]> Restarting! Next map is [next_map.map_name]", CONFIG_GET(string/new_round_alert_channel))
+		if(round_name)
+			send2chat("[round_name] completed!", CONFIG_GET(string/new_round_alert_channel))
+
+		if(next_map)
+			send2chat("<@&[CONFIG_GET(string/new_round_alert_role_id)]> Restarting! Next map is [next_map.map_name]", CONFIG_GET(string/new_round_alert_channel))
 		else
 			send2chat("<@&[CONFIG_GET(string/new_round_alert_role_id)]> Restarting!", CONFIG_GET(string/new_round_alert_channel))
-	return
+
+	if(CONFIG_GET(string/statistics_channel))
+		var/message = "Round end report. [conclusion]\n\
+		|> Round Time: `[round_time]` Drift: `[tickdrift] Avg Players: `[average_players]`\n\
+		Next ground map: [next_map.map_name]"
+		send2chat(message, CONFIG_GET(string/new_round_alert_channel))
 
 /world/proc/send_reboot_sound()
 	var/reboot_sound = SAFEPICK(reboot_sfx)
