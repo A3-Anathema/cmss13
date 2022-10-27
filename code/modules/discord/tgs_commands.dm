@@ -8,8 +8,14 @@
 /datum/tgs_chat_command/status/Run(datum/tgs_chat_user/sender, params)
 	var/list/adm = get_admin_counts()
 	var/list/allmins = adm["total"]
+	var/gamemode = "Unknown"
+	if(!SSticker.mode) // That'd mean round didn't start yet, usually.
+		gamemode = "[SSticker.master_mode] (Lobby)"
+	else
+		gamemode = SSticker.mode.name
 	var/status = "Admins: [allmins.len] (Active: [english_list(adm["present"])] AFK: [english_list(adm["afk"])] Stealth: [english_list(adm["stealth"])] Skipped: [english_list(adm["noflags"])]). "
-	status += "Players: [GLOB.clients.len]. Round has [SSticker.HasRoundStarted() ? "" : "not "]started."
+	status += "\nPlayers: [GLOB.clients.len]. Round has [SSticker.HasRoundStarted() ? "" : "not "]started."
+	status += "\nGamemode: [gamemode] Round Time: [DisplayTimeText(world.time - SSticker.round_start_time)]"
 	return status
 
 /datum/tgs_chat_command/check
@@ -18,7 +24,8 @@
 
 /datum/tgs_chat_command/check/Run(datum/tgs_chat_user/sender, params)
 	var/server = CONFIG_GET(string/server)
-	return "[SSperf_logging.round.id ? "Round #[SSperf_logging.round.id]: " : ""][GLOB.clients.len] players on [SSmapping.configs[GROUND_MAP]?.map_name ]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] -- [server ? server : "[world.internet_address]:[world.port]"]"
+	return "[SSperf_logging.round.id ? "Round #[SSperf_logging.round.id]: " : ""][GLOB.clients.len] players on [SSmapping.configs[GROUND_MAP]?.map_name ]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] Round Time: [DisplayTimeText(world.time - SSticker.round_start_time)]\
+	\n[server ? server : "<[world.internet_address]:[world.port]>"]"
 
 /datum/tgs_chat_command/gameversion
 	name = "gameversion"
