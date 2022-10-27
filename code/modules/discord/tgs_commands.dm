@@ -10,7 +10,7 @@
 	var/list/allmins = adm["total"]
 	var/gamemode = "Unknown"
 	if(!SSticker.mode) // That'd mean round didn't start yet, usually.
-		gamemode = "[SSticker.master_mode] (Lobby)"
+		gamemode = "Lobby"
 	else
 		gamemode = SSticker.mode.name
 	var/status = "Admins: [allmins.len] (Active: [english_list(adm["present"])] AFK: [english_list(adm["afk"])] Stealth: [english_list(adm["stealth"])] Skipped: [english_list(adm["noflags"])]). "
