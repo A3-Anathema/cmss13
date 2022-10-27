@@ -16,7 +16,7 @@
 	var/status = "Admins: [allmins.len] (Active: [english_list(adm["present"], nothing_text = "N/A")] AFK: [english_list(adm["afk"], nothing_text = "N/A")] Stealth: [english_list(adm["stealth"], nothing_text = "N/A")] Skipped: [english_list(adm["noflags"], nothing_text = "N/A")]).\
 	\nPlayers: [GLOB.clients.len]. Round has [SSticker.HasRoundStarted() ? "" : "not "]started.\
 	\nGamemode: [gamemode]\
-	\nRound Time: [DisplayTimeText(world.time - SSticker.round_start_time)]""
+	\nRound Time: [DisplayTimeText(world.time - SSticker.round_start_time)]"
 	return status
 
 /datum/tgs_chat_command/check
