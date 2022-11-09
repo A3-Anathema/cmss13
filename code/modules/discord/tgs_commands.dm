@@ -1,5 +1,3 @@
-#define TGS_STATUS_THROTTLE 5
-
 /datum/tgs_chat_command/status
 	name = "status"
 	help_text = "Gets the admincount, playercount, gamemode, and true game mode of the server"
