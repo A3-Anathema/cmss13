@@ -16,7 +16,7 @@
 	\n**Round:** [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] \
 	\n**Round Time**: [DisplayTimeText(world.time - SSticker.round_start_time)]\
 	\n**Current map:** [SSmapping.configs[GROUND_MAP]?.map_name]\
-	\n**Gamemode:** [gamemode]""
+	\n**Gamemode:** [gamemode]"
 	return status
 
 /datum/tgs_chat_command/check
