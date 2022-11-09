@@ -25,10 +25,11 @@
 
 /datum/tgs_chat_command/check/Run(datum/tgs_chat_user/sender, params)
 	var/server = CONFIG_GET(string/server)
-	var/roundid = ""
+	var/roundid
 	if(SSperf_logging.round)
 		roundid = SSperf_logging.round.id
-	var/message = "[length(roundid) ? "**Current map:** [SSmapping.configs[GROUND_MAP]?.map_name ]\
+	var/message = "**Current map:** [SSmapping.configs[GROUND_MAP]?.map_name]\
+	\n**Round ID:** [roundid ? roundid : "N/A"]\
 	\n**Players:** [GLOB.clients.len]\
 	\n**Round:** [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] \
 	\n**Round Time:** [DisplayTimeText(world.time - SSticker.round_start_time)]\
