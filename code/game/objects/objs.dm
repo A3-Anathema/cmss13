@@ -331,6 +331,8 @@
 	else if(use_spritesheet(bodytype, slot, mob_state))
 		spritesheet = TRUE
 		mob_icon = sprite_sheets[bodytype]
+	else if(contained_sprite)
+		mob_icon = icon
 	else if(LAZYISIN(item_icons, slot))
 		mob_icon = item_icons[slot]
 	else
@@ -381,3 +383,6 @@
 		return 4 SECONDS
 
 	return 1 SECONDS
+
+/obj/proc/set_origin_name_prefix(var/name_prefix)
+	return
